@@ -19,7 +19,7 @@ export class TaskItem {
         element.id = `task-${this.task.id}`;
         element.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
-                <div>
+                <div class="col-md-10">
                     <h5 class="mb-1 task-title">${this.task.title}</h5>
                     <p class="mb-1">${this.task.description || 'Sem descrição'}</p>
                     <small class="text-muted due-date">
