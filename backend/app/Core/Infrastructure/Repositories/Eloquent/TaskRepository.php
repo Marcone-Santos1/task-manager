@@ -10,7 +10,8 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function findAll(): array
     {
-        return TaskModel::all()
+        return TaskModel::orderBy('due_date')
+            ->get()
             ->map(function (TaskModel $model) {
                 return new Task(
                     $model->id,

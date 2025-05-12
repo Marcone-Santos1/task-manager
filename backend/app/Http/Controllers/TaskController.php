@@ -9,6 +9,7 @@ use App\Core\Application\UseCases\Task\DeleteTaskUseCase;
 use App\Core\Application\UseCases\Task\GetTaskUseCase;
 use App\Core\Application\UseCases\Task\ListTasksUseCase;
 use App\Core\Application\UseCases\Task\UpdateTaskUseCase;
+use App\Core\Domain\Exceptions\TaskException;
 use App\Http\Resources\TaskResource;
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
@@ -44,8 +45,12 @@ class TaskController
 
     public function show(int $id): JsonResponse
     {
-        $task = $this->getTaskUseCase->execute($id);
-        return response()->json(new TaskResource($task));
+        try {
+            $task = $this->getTaskUseCase->execute($id);
+            return response()->json(new TaskResource($task));
+        } catch (TaskException $e) {
+            return response()->json($e->getMessage(),  $e->getCode());
+        }
     }
 
     public function update(UpdateTaskRequest $request, int $id): JsonResponse

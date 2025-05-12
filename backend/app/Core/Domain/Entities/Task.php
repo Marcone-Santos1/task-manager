@@ -60,4 +60,9 @@ class Task
     {
         return $this->dueDate < new DateTime();
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 }
